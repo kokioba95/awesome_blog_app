@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/Users', 'UserController@index')->name('users');
+Route::post('/blog/store', 'BlogController@store')->name('blog.store');
+Route::get('/blog/delete', 'UserController@delete')->name('blog.delete');
+Route::get('/blog/{id}/edit', 'BlogController@edit')->name('edit');
+Route::post('/blog/{id}/update', 'BlogController@update')->name('blog.update');
+Route::post('/client', 'BlogController@client')->name('client');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
