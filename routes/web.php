@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,22 +9,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/Users', 'UserController@index')->name('users');
-Route::post('/blog/store', 'BlogController@store')->name('blog.store');
-Route::get('/blog/delete', 'UserController@delete')->name('blog.delete');
-Route::get('/blog/{id}/edit', 'BlogController@edit')->name('edit');
-Route::post('/blog/{id}/update', 'BlogController@update')->name('blog.update');
-Route::post('/client', 'BlogController@client')->name('client');
-
-
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
+Route::post('/post', 'HomeController@post')->name('post');
+Route::get('/blog/{id}/delete', 'BlogController@delete');
+Route::get('/blog/{id}/edit', 'BlogController@edit');
+Route::get('/blog/{id}/update', 'BlogController@update');
+Route::get('/users', 'UserController@users');
+Route::get('/user/{id}/home', 'UserController@user_home');
+Route::get('/user/{id}/edit', 'UserController@user_edit');
+Route::get('/user/{id}/update', 'UserController@user_update');
+Route::get('/user/{id}/follow', 'UserController@follow');
+Route::get('/user/{id}/unfollow', 'UserController@unfollow');
