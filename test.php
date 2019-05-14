@@ -1,4 +1,17 @@
-@extends('layouts.app')
+public function unfollow($id)
+    {
+        auth()->user()->following()->detach($id);
+        return redirect('/users');
+    }
+
+public function follow($id)
+    {
+        $user = User::find($id);
+        Auth::user()->following()->save($user);
+        return redirect('/users');
+    }
+    
+    @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -16,11 +29,11 @@
                     <div class="dropdown-divider py-1"></div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a class="pb-3" href="/user/{{ auth()->user()->id }}/following"><strong>{{ auth()->user()->following()->count() }}</strong></a>
+                            <a class="pb-3" href=""><strong>{{ auth()->user()->following()->count() }}</strong></a>
                             <p>following</p>
                         </div>
                         <div class="col-sm-6">
-                            <a class="pb-3" href="/user/{{ auth()->user()->id }}/follower"><strong>{{ auth()->user()->follower()->count() }}</strong></a>
+                            <a class="pb-3" href=""><strong>{{ auth()->user()->follower()->count() }}</strong></a>
                             <p>followers</p>
                         </div>
                     </div>
@@ -72,11 +85,8 @@
                                     </div>
                                     <div class="dropdown-divider py-1"></div>
                                     <p>{{ $blog->content}}</p>
-                                    <div aligin="right">
                                     <a class="btn btn-primary" href="/blog/{{$blog->id}}/delete" role="button">Delete</a>
                                     <a class="btn btn-primary" href="/blog/{{$blog->id}}/edit" role="button">Edit</a>
-                                    </div>
-                                    <p>Liked : {{ $blog->like_blog()->count() }}</p>
                                 </div>
                             </div>
                             @endforeach
@@ -88,4 +98,28 @@
     </div>
 </div>
 </div>
+@endsection
+
+@extends('layouts.app')
+
+@section('content')
+    <div>
+        <h2>{{ $blog->id }}</h2>
+        <a href="/home">Back</a>
+    </div>
+    <div class="containeer">
+        <form action="/Blog/{{$blog->id}}/update" method="POST">
+            @csrf
+            <div>
+                <label>Blog</label>
+                <input name="content" value="{{ $blog->content }}">
+            </div>
+
+
+            <div>
+                <button> Submit </button>
+            </div>
+
+        </form>
+    </div>
 @endsection

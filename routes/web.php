@@ -24,3 +24,7 @@ Route::get('/user/{id}/edit', 'UserController@user_edit');
 Route::get('/user/{id}/update', 'UserController@user_update');
 Route::get('/user/{id}/follow', 'UserController@follow');
 Route::get('/user/{id}/unfollow', 'UserController@unfollow');
+Route::get('/user/{id}/following', 'UserController@following');
+Route::get('/user/{id}/follower', 'UserController@follower');
+Route::get('/blog/{id}/like', 'BlogController@like');
+Route::get('/blog/{id}/deslike', 'BlogController@deslike');

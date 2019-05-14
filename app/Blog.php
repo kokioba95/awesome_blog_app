@@ -7,4 +7,8 @@ class Blog extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function like_blog()
+    {
+        return $this->belongsToMany('App\User','likes','blog_id','user_id');
+    }
 }

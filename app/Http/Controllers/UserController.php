@@ -1,4 +1,3 @@
-    
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
@@ -43,11 +42,27 @@ class UserController extends Controller
     {
         $user = User::find($id);
         Auth::user()->following()->save($user);
-        return redirect('/users');
+        return back();
     }
     public function unfollow($id)
     {
         auth()->user()->following()->detach($id);
-        return redirect('/users');
+        return back();
     }
+    public function following($id)
+    {
+        $user = User::find($id);
+        $following = $user->following()->get();
+        return view('following', compact('followings','user'));
+    }
+    public function follower($id)
+    {
+        $user = User::follower($id);
+        $follower = $user->follower()->get();
+        return view('follower', compact('followers','user'));
+    }
+
+
+
+
 }
